@@ -1,93 +1,95 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>RAKH AI Music Generator</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RAKH AI MUSIC</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;background:#10101b;color:white;font-family:Arial,sans-serif}
-header{padding:25px 18px;background:linear-gradient(120deg,#441b72,#0756a5)}
-h1{margin:0;font-size:27px}
-header p{color:#ddd}
-main{max-width:650px;margin:auto;padding:18px}
-.card{background:#1d1d2c;border:1px solid #38384e;border-radius:16px;padding:18px;margin:16px 0}
-label{display:block;margin:15px 0 7px}
-input,textarea,select{width:100%;padding:13px;border-radius:9px;border:1px solid #55556a;background:#11111c;color:white;font-size:15px}
-button{padding:13px;border:0;border-radius:9px;background:#8b5cf6;color:white;font-weight:bold;cursor:pointer}
-.full{width:100%;margin-top:16px}
-.note{font-size:13px;color:#c6c6d5;line-height:1.5}
-#status{white-space:pre-wrap;line-height:1.6}
+body{margin:0;background:#100b20;color:white;font-family:Arial,sans-serif}
+header{text-align:center;padding:28px 15px;background:linear-gradient(135deg,#5424a8,#d6299a)}
+header h1{margin:0;font-size:30px}
+header p{margin:8px 0 0}
+main{max-width:650px;margin:25px auto;padding:20px}
+.card{background:#201735;padding:22px;border-radius:18px;border:1px solid #493364}
+label{display:block;margin:17px 0 7px;font-weight:bold}
+input,select,textarea{width:100%;padding:13px;border-radius:9px;border:1px solid #5b4777;background:#120d20;color:white;font-size:16px}
+textarea{min-height:100px;resize:vertical}
+button{width:100%;padding:15px;margin-top:20px;border:0;border-radius:10px;background:#e333a3;color:white;font-weight:bold;font-size:17px}
+#result{display:none;margin-top:20px;padding:15px;background:#120d20;border-radius:10px;overflow-wrap:anywhere}
+small{color:#c7b8dc}
+footer{text-align:center;padding:25px;color:#bdb0d2}
 </style>
 </head>
 <body>
 <header>
 <h1>🎧 RAKH AI MUSIC</h1>
-<p>Create your sound. Own your vibe. — VDJ RAKH 254</p>
+<p>Create your next hit with VDJ RAKH 254</p>
 </header>
 <main>
 <div class="card">
-<h2>🎤 Create a new song</h2>
-<label>Song description</label>
-<textarea id="prompt" rows="3" placeholder="Example: Swahili dancehall song about success, with powerful vocals..."></textarea>
-<label>Music genre</label>
+<h2>🎵 Create Your Song</h2>
+<label for="title">Song title</label>
+<input id="title" placeholder="Enter your song title">
+<label for="genre">Choose genre</label>
 <select id="genre">
-<option>Dancehall</option>
-<option>Bongo Flava</option>
-<option>Mugithi</option>
-<option>Afrobeat</option>
-<option>Reggae</option>
-<option>Rumba</option>
-<option>Gospel</option>
-<option>Hip Hop</option>
+<option>Dancehall</option><option>Bongo Flava</option>
+<option>Mugithi</option><option>Afrobeat</option>
+<option>Reggae</option><option>Rumba</option>
+<option>Gospel</option><option>Hip Hop</option>
 </select>
-<label>Vocal style</label>
-<select id="voice">
-<option>Male AI singer</option>
-<option>Female AI singer</option>
-<option>Male and female duet</option>
-<option>Instrumental only</option>
-</select>
-<label>Language</label>
+<label for="language">Song language</label>
 <select id="language">
-<option>Swahili</option>
-<option>English</option>
-<option>Kikuyu</option>
-<option>Swahili + English</option>
-<option>Swahili + Kikuyu</option>
+<option>Swahili + English</option><option>Swahili</option>
+<option>English</option><option>Kikuyu</option>
+<option>Kikuyu + Swahili</option>
 </select>
-<label>Lyrics (optional)</label>
-<textarea id="lyrics" rows="4" placeholder="Paste your own lyrics here, or leave blank..."></textarea>
-<button class="full" onclick="createSong()">Prepare My Song</button>
-<div id="status" class="note"></div>
+<label for="voice">Vocal style</label>
+<select id="voice">
+<option>Male vocals</option><option>Female vocals</option>
+<option>Male and female duet</option><option>Instrumental only</option>
+</select>
+<label for="idea">Describe your song</label>
+<textarea id="idea" placeholder="Write your song idea, mood, message and beat..."></textarea>
+<label for="lyrics">Your lyrics (optional)</label>
+<textarea id="lyrics" placeholder="Paste your lyrics here..."></textarea>
+<button onclick="prepareSong()">✨ Prepare My Song</button>
+<div id="result"></div>
 </div>
-<div class="card">
-<h2>🎵 Your music</h2>
-<p class="note">Your generated audio will appear here after a music-generation service is connected.</p>
-<audio id="player" controls style="width:100%"></audio>
-<button class="full" id="download" disabled>Download MP3</button>
-<p class="note">AI audio generation and MP3 downloads require a connected music-generation API. This preview does not yet generate real vocals or audio.</p>
-</div>
+<p><small>Note: This starter app prepares your song brief. Real AI audio, singing vocals and MP3 downloads require an AI music service connection.</small></p>
 </main>
+<footer>RAKH AI MUSIC • VDJ RAKH 254</footer>
 <script>
-function createSong(){
-const prompt=document.getElementById('prompt').value.trim();
+function prepareSong(){
+const title=document.getElementById('title').value.trim()||'Untitled Song';
 const genre=document.getElementById('genre').value;
-const voice=document.getElementById('voice').value;
 const language=document.getElementById('language').value;
+const voice=document.getElementById('voice').value;
+const idea=document.getElementById('idea').value.trim();
 const lyrics=document.getElementById('lyrics').value.trim();
-if(!prompt&&!lyrics){
-document.getElementById('status').textContent='Please enter a song description or lyrics first.';
-return;
-}
-document.getElementById('status').textContent=
-'Song brief prepared!\n\nGenre: '+genre+
-'\nVocals: '+voice+
-'\nLanguage: '+language+
-'\nDescription: '+(prompt||'Use supplied lyrics')+
-'\nLyrics: '+(lyrics||'To be generated')+
-'\n\nNext step: connect an AI music-generation API to create real audio.';
+const result=document.getElementById('result');
+result.style.display='block';
+result.innerHTML='';
+const heading=document.createElement('h3');
+heading.textContent='Your Song Brief: '+title;
+result.appendChild(heading);
+const details=document.createElement('p');
+details.textContent='Genre: '+genre+' | Language: '+language+' | Vocals: '+voice;
+result.appendChild(details);
+const description=document.createElement('p');
+description.textContent='Song idea: '+(idea||'Add your song idea to personalise this brief.');
+result.appendChild(description);
+const lyricHeading=document.createElement('strong');
+lyricHeading.textContent='Lyrics';
+result.appendChild(lyricHeading);
+const lyricText=document.createElement('p');
+lyricText.textContent=lyrics||'No lyrics added yet.';
+result.appendChild(lyricText);
+const note=document.createElement('p');
+note.textContent='Next step: connect an AI music generation service to create audio.';
+result.appendChild(note);
 }
 </script>
 </body>
