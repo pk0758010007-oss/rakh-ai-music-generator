@@ -1,0 +1,94 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RAKH AI Music Generator</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#10101b;color:white;font-family:Arial,sans-serif}
+header{padding:25px 18px;background:linear-gradient(120deg,#441b72,#0756a5)}
+h1{margin:0;font-size:27px}
+header p{color:#ddd}
+main{max-width:650px;margin:auto;padding:18px}
+.card{background:#1d1d2c;border:1px solid #38384e;border-radius:16px;padding:18px;margin:16px 0}
+label{display:block;margin:15px 0 7px}
+input,textarea,select{width:100%;padding:13px;border-radius:9px;border:1px solid #55556a;background:#11111c;color:white;font-size:15px}
+button{padding:13px;border:0;border-radius:9px;background:#8b5cf6;color:white;font-weight:bold;cursor:pointer}
+.full{width:100%;margin-top:16px}
+.note{font-size:13px;color:#c6c6d5;line-height:1.5}
+#status{white-space:pre-wrap;line-height:1.6}
+</style>
+</head>
+<body>
+<header>
+<h1>🎧 RAKH AI MUSIC</h1>
+<p>Create your sound. Own your vibe. — VDJ RAKH 254</p>
+</header>
+<main>
+<div class="card">
+<h2>🎤 Create a new song</h2>
+<label>Song description</label>
+<textarea id="prompt" rows="3" placeholder="Example: Swahili dancehall song about success, with powerful vocals..."></textarea>
+<label>Music genre</label>
+<select id="genre">
+<option>Dancehall</option>
+<option>Bongo Flava</option>
+<option>Mugithi</option>
+<option>Afrobeat</option>
+<option>Reggae</option>
+<option>Rumba</option>
+<option>Gospel</option>
+<option>Hip Hop</option>
+</select>
+<label>Vocal style</label>
+<select id="voice">
+<option>Male AI singer</option>
+<option>Female AI singer</option>
+<option>Male and female duet</option>
+<option>Instrumental only</option>
+</select>
+<label>Language</label>
+<select id="language">
+<option>Swahili</option>
+<option>English</option>
+<option>Kikuyu</option>
+<option>Swahili + English</option>
+<option>Swahili + Kikuyu</option>
+</select>
+<label>Lyrics (optional)</label>
+<textarea id="lyrics" rows="4" placeholder="Paste your own lyrics here, or leave blank..."></textarea>
+<button class="full" onclick="createSong()">Prepare My Song</button>
+<div id="status" class="note"></div>
+</div>
+<div class="card">
+<h2>🎵 Your music</h2>
+<p class="note">Your generated audio will appear here after a music-generation service is connected.</p>
+<audio id="player" controls style="width:100%"></audio>
+<button class="full" id="download" disabled>Download MP3</button>
+<p class="note">AI audio generation and MP3 downloads require a connected music-generation API. This preview does not yet generate real vocals or audio.</p>
+</div>
+</main>
+<script>
+function createSong(){
+const prompt=document.getElementById('prompt').value.trim();
+const genre=document.getElementById('genre').value;
+const voice=document.getElementById('voice').value;
+const language=document.getElementById('language').value;
+const lyrics=document.getElementById('lyrics').value.trim();
+if(!prompt&&!lyrics){
+document.getElementById('status').textContent='Please enter a song description or lyrics first.';
+return;
+}
+document.getElementById('status').textContent=
+'Song brief prepared!\n\nGenre: '+genre+
+'\nVocals: '+voice+
+'\nLanguage: '+language+
+'\nDescription: '+(prompt||'Use supplied lyrics')+
+'\nLyrics: '+(lyrics||'To be generated')+
+'\n\nNext step: connect an AI music-generation API to create real audio.';
+}
+</script>
+</body>
+</html>
